@@ -1,25 +1,10 @@
-<script setup lang="ts">
-import { isDark, toggleDark } from '~/composables'
-const { t } = useI18n()
-</script>
-
 <template>
-  <nav class="text-xl mt-6">
-    <router-link class="icon-btn mx-2" to="/" :title="t('button.home')">
-      <carbon-campsite />
-    </router-link>
-
-    <button class="icon-btn mx-2 !outline-none" :title="t('button.toggle_dark')" @click="toggleDark()">
-      <carbon-moon v-if="isDark" />
-      <carbon-sun v-else />
-    </button>
-
-    <router-link class="icon-btn mx-2" to="/about" :title="t('button.about')">
-      <carbon-dicom-overlay />
-    </router-link>
-
-    <a class="icon-btn mx-2" rel="noreferrer" href="https://github.com/lucaxue" target="_blank" title="GitHub">
-      <carbon-logo-github />
-    </a>
-  </nav>
+  <footer class="px-7 my-6 prose m-auto opacity-50 flex">
+    <span class="text-sm">
+      <a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+        CC BY-NC-SA 4.0
+      </a>
+      2022 © Luca Xue
+    </span>
+  </footer>
 </template>
