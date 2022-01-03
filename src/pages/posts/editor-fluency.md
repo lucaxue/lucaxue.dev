@@ -1,5 +1,7 @@
 ---
 title: Editor Fluency
+date: 2022-01-03T15:00:00.000+00:00
+duration: 3min
 ---
 
 # Editor Fluency
