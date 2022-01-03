@@ -5,7 +5,11 @@
 useHead({
   title: 'Luca Xue',
   meta: [
-    { name: 'description', content: 'Hi, I\'m Luca and this is my personal website.' },
+    { property: 'og:title', content: 'Luca Xue' },
+    // { property: 'og:image', content: '' },
+    { name: 'description', content: 'Luca Xue\'s Portfolio' },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:creator', content: '@luca_xue' },
   ],
 })
 </script>
