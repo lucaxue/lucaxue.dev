@@ -61,7 +61,7 @@ It does have a steep learning curve, but trust me, it is definitely worth the ef
 
 Just let this example do the talking:
 
-![Vim HTML to CSV demo](/public/vim-html-to-csv-demo.gif)
+![Vim HTML to CSV demo](/public/images/vim-html-to-csv-demo.gif)
 
 <figcaption>
 
