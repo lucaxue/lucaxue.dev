@@ -2,7 +2,8 @@
 title: Blog
 ---
 
-<div class="text-center">
-  <carbon-dicom-overlay class="text-4xl -mb-6 m-auto" />
-  <h3>Blog</h3>
-</div>
+# Blog
+
+<ul>
+  <li><router-link to="/posts/editor-fluency">Editor Fluency</router-link></li>
+</ul>
