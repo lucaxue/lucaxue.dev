@@ -1,3 +1,7 @@
+---
+title: Editor Fluency
+---
+
 # Editor Fluency
 
 One of the universal skills that all developers should have, is being fluent with at least one text editor.
