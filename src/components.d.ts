@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
     CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
+    CarbonHome: typeof import('~icons/carbon/home')['default']
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
     CarbonLogoTwitter: typeof import('~icons/carbon/logo-twitter')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
@@ -13,7 +14,22 @@ declare module 'vue' {
     Counter: typeof import('./components/Counter.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     NavigationBar: typeof import('./components/NavigationBar.vue')['default']
+    PhTwitterAlt: typeof import('~icons/ph/twitter-alt')['default']
+    PhTwitterLogo: typeof import('~icons/ph/twitter-logo')['default']
     README: typeof import('./components/README.md')['default']
+    'Uil:documentLayoutLeft': typeof import('~icons/uil/document-layout-left')['default']
+    UilDocumentLayoutLeft: typeof import('~icons/uil/document-layout-left')['default']
+    UilFileAlt: typeof import('~icons/uil/file-alt')['default']
+    UilFileLayoutLeft: typeof import('~icons/uil/file-layout-left')['default']
+    UilGithubAlt: typeof import('~icons/uil/github-alt')['default']
+    UilHome: typeof import('~icons/uil/home')['default']
+    UilHomeAlt: typeof import('~icons/uil/home-alt')['default']
+    UilLightbulbAlt: typeof import('~icons/uil/lightbulb-alt')['default']
+    UilLogoTwitter: typeof import('~icons/uil/logo-twitter')['default']
+    UilMoon: typeof import('~icons/uil/moon')['default']
+    UilSun: typeof import('~icons/uil/sun')['default']
+    UilTwitter: typeof import('~icons/uil/twitter')['default']
+    UilTwitterAlt: typeof import('~icons/uil/twitter-alt')['default']
   }
 }
 
