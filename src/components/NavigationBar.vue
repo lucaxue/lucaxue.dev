@@ -4,12 +4,12 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <nav class="mb-6 w-full flex justify-between">
+  <header class="sm:mb-6 w-full flex justify-between">
     <router-link class="icon-btn mx-2" to="/" :title="t('button.home')">
       <uil-home-alt class="mt-1" />
     </router-link>
 
-    <div class="flex">
+    <nav class="flex">
       <router-link class="icon-btn mx-2" to="/posts" :title="t('button.home')">
         <span class="sm:block hidden">Blog</span>
         <uil-file-alt class="sm:hidden mt-1" />
@@ -32,6 +32,6 @@ const { t } = useI18n()
         <uil-moon v-if="isDark" class="mt-1" />
         <uil-sun v-else class="mt-1" />
       </button>
-    </div>
-  </nav>
+    </nav>
+  </header>
 </template>
