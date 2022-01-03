@@ -4,7 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Counter: typeof import('./components/Counter.vue')['default']
+    CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     NavigationBar: typeof import('./components/NavigationBar.vue')['default']
     README: typeof import('./components/README.md')['default']
