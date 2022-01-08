@@ -5,7 +5,7 @@ My personal website.
 ## Checklist
 
 - [x] Change favicon in `public`
-- [ ] Dynamically generate post list
+- [x] Dynamically generate post list
 - [ ] Update post layout to show date and reading duration
 
 ## Development
