@@ -61,9 +61,11 @@ It does have a steep learning curve, but trust me, it is definitely worth the ef
 
 Just let this example do the talking:
 
-![Vim HTML to CSV demo](/public/images/vim-html-to-csv-demo.gif)
-
-<figcaption>
+<img
+  alt="Vim HTML to CSV demo"
+  src="/public/images/vim-html-to-csv-demo.gif"
+/>
+<figcaption class="-mt-4 text-center opacity-70">
 
 _Using Vim to convert a HTML table to a CSV file._
 
