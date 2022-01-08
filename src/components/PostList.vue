@@ -1,21 +1,12 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import dayjs from 'dayjs'
+import { formatDate } from '~/utils'
 
 const router = useRouter()
 
 const posts = router.getRoutes()
   .filter(i => i.path.startsWith('/posts') && i.meta.frontmatter?.date)
   .sort((a, b) => +new Date(b.meta.frontmatter.date) - +new Date(a.meta.frontmatter.date))
-
-function formatDate(d: string | Date) {
-  const date = dayjs(d)
-  if (date.year() === dayjs().year())
-    return date.format('MMM D')
-
-  return date.format('MMM D, YYYY')
-}
-
 </script>
 
 <template>
