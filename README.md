@@ -1,10 +1,10 @@
 # [lucaxue.dev](lucaxue.dev)
 
-My personal website. 
+My personal website.
 
 ## Checklist
 
-- [ ] Change favicon in `public`
+- [x] Change favicon in `public`
 - [ ] Dynamically generate post list
 - [ ] Update post layout to show date and reading duration
 
