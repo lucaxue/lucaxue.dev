@@ -8,6 +8,13 @@ declare module 'vue' {
     NavigationBar: typeof import('./components/NavigationBar.vue')['default']
     PostList: typeof import('./components/PostList.vue')['default']
     README: typeof import('./components/README.md')['default']
+    UilFileAlt: typeof import('~icons/uil/file-alt')['default']
+    UilGithubAlt: typeof import('~icons/uil/github-alt')['default']
+    UilHomeAlt: typeof import('~icons/uil/home-alt')['default']
+    UilLightbulbAlt: typeof import('~icons/uil/lightbulb-alt')['default']
+    UilMoon: typeof import('~icons/uil/moon')['default']
+    UilSun: typeof import('~icons/uil/sun')['default']
+    UilTwitterAlt: typeof import('~icons/uil/twitter-alt')['default']
   }
 }
 
