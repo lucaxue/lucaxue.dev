@@ -1,4 +1,6 @@
-import path from 'path'
+import path, { resolve } from 'path'
+import fs from 'fs'
+import matter from 'gray-matter'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
@@ -31,6 +33,15 @@ export default defineConfig({
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
       extensions: ['vue', 'md'],
+      extendRoute(route) {
+        const path = resolve(__dirname, route.component.slice(1))
+
+        const md = fs.readFileSync(path, 'utf-8')
+        const { data } = matter(md)
+        route.meta = Object.assign(route.meta || {}, { frontmatter: data })
+
+        return route
+      },
     }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts

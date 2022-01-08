@@ -1,0 +1,39 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import dayjs from 'dayjs'
+
+const router = useRouter()
+
+const posts = router.getRoutes()
+  .filter(i => i.path.startsWith('/posts') && i.meta.frontmatter?.date)
+  .sort((a, b) => +new Date(b.meta.frontmatter.date) - +new Date(a.meta.frontmatter.date))
+
+function formatDate(d: string | Date) {
+  const date = dayjs(d)
+  if (date.year() === dayjs().year())
+    return date.format('MMM D')
+
+  return date.format('MMM D, YYYY')
+}
+
+</script>
+
+<template>
+  <ul>
+    <router-link
+      v-for="(route, index) in posts"
+      :key="route.path"
+      style="text-decoration: none !important;"
+      :to="route.path"
+    >
+      <li>
+        <div class="text-lg font-normal">
+          {{ route.meta.frontmatter.title }}
+        </div>
+        <div class="opacity-50 text-sm -mt-1" :class="[index !== posts.length -1 ? 'mb-6' : '']">
+          {{ formatDate(route.meta.frontmatter.date) }} <span v-if="route.meta.frontmatter.duration" class="opacity-50">· {{ route.meta.frontmatter.duration }}</span>
+        </div>
+      </li>
+    </router-link>
+  </ul>
+</template>

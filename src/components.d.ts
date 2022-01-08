@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Footer: typeof import('./components/Footer.vue')['default']
     NavigationBar: typeof import('./components/NavigationBar.vue')['default']
+    PostList: typeof import('./components/PostList.vue')['default']
     README: typeof import('./components/README.md')['default']
     UilFileAlt: typeof import('~icons/uil/file-alt')['default']
     UilGithubAlt: typeof import('~icons/uil/github-alt')['default']
