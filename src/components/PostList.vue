@@ -21,7 +21,7 @@ const posts = router.getRoutes()
         <div class="text-lg font-normal">
           {{ route.meta.frontmatter.title }}
         </div>
-        <div class="opacity-50 text-sm -mt-1" :class="[index !== posts.length -1 ? 'mb-6' : '']">
+        <div class="opacity-50 text-sm" :class="[index !== posts.length -1 ? 'mb-6' : '']">
           {{ formatDate(route.meta.frontmatter.date) }} <span v-if="route.meta.frontmatter.duration" class="opacity-50">· {{ route.meta.frontmatter.duration }}</span>
         </div>
       </li>
