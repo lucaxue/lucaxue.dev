@@ -10,8 +10,8 @@ const route = useRoute()
 </script>
 
 <template>
-  <div v-if="frontmatter.display ?? frontmatter.title" class="prose m-auto my-10 px-5 text-left">
-    <h1 class="mb-0">
+  <div v-if="frontmatter.display ?? frontmatter.title" class="prose m-auto my-10 px-7 text-left">
+    <h1 class="mb-0 !text-4xl !font-bold">
       {{ frontmatter.display ?? frontmatter.title }}
     </h1>
     <p v-if="frontmatter.date" class="opacity-50 !-mt-4">
