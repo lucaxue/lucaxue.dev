@@ -1,4 +1,6 @@
-# Luca Xue
+---
+title: Luca Xue
+---
 
 Hi, I am Luca Xue. A software developer, currently working at [Suru Partners](https://surupartners.com).
 

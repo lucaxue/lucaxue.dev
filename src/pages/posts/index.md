@@ -1,7 +1,5 @@
 ---
-title: Blog
+display: Blog
 ---
-
-# Blog
 
 <PostList/>
