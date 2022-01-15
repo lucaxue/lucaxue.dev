@@ -4,7 +4,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <header class="mb-6 px-5 w-full flex justify-between">
+  <header class="mb-6 sm:px-6 px-3 w-full flex justify-between">
     <router-link class="icon-btn mx-2" to="/" :title="t('button.home')">
       <uil-home-alt class="mt-1" />
     </router-link>
