@@ -1,12 +1,6 @@
-# [lucaxue.dev](lucaxue.dev)
+# [lucaxue.dev](https://lucaxue.dev)
 
 My personal website.
-
-## Checklist
-
-- [x] Change favicon in `public`
-- [x] Dynamically generate post list
-- [ ] Update post layout to show date and reading duration
 
 ## Development
 
