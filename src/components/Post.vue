@@ -30,7 +30,7 @@ const route = useRoute()
   <VueUtterances
     v-if="route.path.startsWith('/posts/')"
     :key="isDark"
-    class="max-w-screen-md m-auto mt-8 md:px-5 md:pr-21 px-7"
+    class="max-w-screen-md px-4 m-auto mt-8 md:px-5 md:pr-21"
     repo="lucaxue/lucaxue.dev"
     label="💬 comment"
     :theme="isDark ? 'github-dark' : 'github-light'"
