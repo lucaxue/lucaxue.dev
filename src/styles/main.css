@@ -12,6 +12,12 @@ html.dark {
   background: #121212;
 }
 
+// Removes blue highlight on buttons
+// and links for mobile devices.
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 #nprogress {
   pointer-events: none;
 }

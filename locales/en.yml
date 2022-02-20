@@ -3,6 +3,8 @@ button:
   back: Back
   go: GO
   home: Home
+  projects: Projects
+  blog: Blog
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
 intro:

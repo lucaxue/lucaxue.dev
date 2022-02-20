@@ -10,12 +10,12 @@ const { t } = useI18n()
     </router-link>
 
     <nav class="flex">
-      <router-link class="icon-btn mx-2" to="/posts" :title="t('button.home')">
+      <router-link class="icon-btn mx-2" to="/posts" :title="t('button.blog')">
         <span class="sm:block hidden">Blog</span>
         <uil-file-alt class="sm:hidden mt-1" />
       </router-link>
 
-      <router-link class="icon-btn mx-2" to="/projects" :title="t('button.home')">
+      <router-link class="icon-btn mx-2" to="/projects" :title="t('button.projects')">
         <span class="sm:block hidden">Projects</span>
         <uil-lightbulb-alt class="sm:hidden mt-1" />
       </router-link>
@@ -28,7 +28,7 @@ const { t } = useI18n()
         <uil-github-alt class="mt-1" />
       </a>
 
-      <button class="icon-btn mx-2 !outline-none" :title="t('button.toggle_dark')" @click="toggleDark()">
+      <button class="icon-btn mx-2 !outline-none" style="" :title="t('button.toggle_dark')" @click="toggleDark()">
         <uil-moon v-if="isDark" class="mt-1" />
         <uil-sun v-else class="mt-1" />
       </button>
