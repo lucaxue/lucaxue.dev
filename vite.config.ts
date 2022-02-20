@@ -10,12 +10,14 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Markdown from 'vite-plugin-md'
+import anchor from 'markdown-it-anchor'
 import WindiCSS from 'vite-plugin-windicss'
 import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Inspect from 'vite-plugin-inspect'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
+import slugify from 'slugify'
 
 const markdownWrapperClasses = 'prose px-7 m-auto text-left'
 
@@ -100,9 +102,21 @@ export default defineConfig({
         // https://prismjs.com/
         // @ts-expect-error types mismatch
         md.use(Prism)
+
+        // Add markdown header anchors.
+        // @ts-expect-error types mismatch
+        md.use(anchor, {
+          slugify: (str: string) => slugify(str, { lower: true }),
+          permalink: anchor.permalink.linkInsideHeader({
+            symbol: '#',
+            renderAttrs: () => ({ 'aria-hidden': 'true' }),
+          }),
+        })
+
+        // Only open external links in new tabs.
         // @ts-expect-error types mismatch
         md.use(LinkAttributes, {
-          pattern: /^https?:\/\//,
+          matcher: (link: string) => /^https?:\/\//.test(link),
           attrs: {
             target: '_blank',
             rel: 'noopener',
