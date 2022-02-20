@@ -33,7 +33,7 @@ const route = useRoute()
     class="max-w-screen-md px-4 m-auto mt-8 md:px-5 md:pr-21"
     repo="lucaxue/lucaxue.dev"
     label="💬 comment"
-    :theme="isDark ? 'github-dark' : 'github-light'"
+    :theme="isDark ? 'photon-dark' : 'github-light'"
     issue-term="pathname"
   />
   <div v-if="route.path !== '/'" class="m-auto my-8 prose">
