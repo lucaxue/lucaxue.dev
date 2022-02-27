@@ -1,7 +1,7 @@
 ---
-title: Event Sourcing 101
+title: Event Sourcing
 date: 2022-02-17T13:00:00.000+00:00
-duration: 3min
+duration: 5min
 ---
 
 One of the interesting things I've not so recently learned about, is event sourcing. In simple terms, it is a way of creating software models with events. What does that even mean and why is it useful?
@@ -15,14 +15,23 @@ For the purposes of this blog, let's just oversimplify, and assume that a bank a
 You can imagine a snippet like the following for updating the balance of an account. You retrieve the account from the database, update its balance, then persist the updated account in the database, simple enough.
 
 ```php
+// Retrieve the model from the database...
 $account = $repository->find($id);
+
+// Update the model...
 $account->deposit(1000);
+
+// Save the changes into the database.
 $repository->save($account);
 ```
+
+The implementation for bank account model might look something like this:
 
 ```php
 class BankAccount
 {
+    // ...
+
     public function deposit(float $amount) : void
     {
         $this->amount += $amount;
@@ -30,29 +39,40 @@ class BankAccount
 }
 ```
 
-This is all well and good, now imagine if you had a requirement, where the transaction history is required. For example, using it to check if a user is allowed to make a deposit, or simply needing to display the history in the UI. How would you handle this?
+This is all well and good. Now imagine if you had a requirement, where the transaction history is required. For example, using it to check if a user is allowed to make a deposit, or simply needing to display it in the UI. How would you handle this?
 
 ## Modelling with events
 
 If you think about, as far as we're concerned, a bank account is just a series of user transations. Instead of using a row in a table to model our account, could we somehow use a series of events to make up our model?
 
+```php
+// Build the model from its events...
+$account = $repository->find($id);
 
-Rebuild model from events
-Interact with the model
-Store changes in the model
+// Perform an update that fires an event...
+$account->deposit(1000);
 
+// Append the new event to the event stream.
+$repository->save($account);
+```
 
+* Rebuild model from events
+* Interact with the model
+* Store changes in the model
 
 ```php
 class BankAccount
 {
-    use EventSourcedEntity;
+    // ...
 
-    public static function open(
-        UserId $accountHolder,
-        Amount $amount,
-    ) : self {
-        // ...
+    public function deposit(float $amount) : void
+    {
+        $this->recordThat(new AmountWasDeposited($this->id()));
+    }
+
+    private function applyAmountWasDeposited(AmountWasDeposited $event) : void
+    {
+        $this->amount += $event->amount();
     }
 }
 ```
