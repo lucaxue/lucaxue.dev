@@ -10,7 +10,7 @@ One of the interesting things I've not so recently learned about, is event sourc
 
 Imagine if you were trying to build an application for a bank, and you were working on the bank account.
 
-For the purposes of this blog, let's just oversimplify, and assume that a bank account only holds the ID of the account holder, and its amount as a float.
+For the purposes of this blog, let's just oversimplify, and assume that a bank account only holds an ID, and its amount as a float.
 
 You can imagine a snippet like the following for depositing some amount to an account. You retrieve the account from the database, update its balance, then persist the updated account in the database, simple enough.
 
@@ -80,7 +80,7 @@ Before diving more in depth onto how that all works together, let's take a quick
 
 ### Events and Domain Events
 
-Events are simple objects, like DTOs, that rapresent something that happend in the past. Domain events, are slightly more specific, and represent something important to the problem domain we're solving. In our case, we care about an amount being deposit, so we appropriately name the event as `AmountWasDeposited`. Events are what we'll be persisting, so we'll want some serialization and hydration logic in them too.
+Events are simple data structures, like DTOs, that rapresent something that happend in the past. They hold the necessary data that matters to an event. Domain events, are slightly more specific, and represent something important to the problem domain we're solving. In our case, we care about an amount being deposit, so we appropriately name the event as `AmountWasDeposited`, and let it hold the bank account's ID as well as the amount deposited. Events are what we'll be persisting, so we'll want some serialization and hydration logic in them too.
 
 ```php
 class AmountWasDeposited implements DomainEvent
@@ -97,7 +97,7 @@ class AmountWasDeposited implements DomainEvent
 ### Recording our events
 
 Moving back to our `BankAccount` model, let's take a look at how the events are recorded.
-You may have noticed that we now extend the `EventSourcedAggregate` class, which contains all the logic to handle event sourcing. First we append it in memory, then we find the appropriate event handler to apply the event to our model.
+You may have noticed that we now extend the `EventSourcedAggregate` class, which contains all the logic to handle event sourcing. When recording an event, we first we append it in memory, then we find the appropriate event handler to apply the event to our model.
 
 ```php
 class BankAccount extends EventSourcedAggregate {/** */}
@@ -136,7 +136,7 @@ abstract class EventSourcedAggregate
 
 ### Model persistence and hydration
 
-Now that we have seen how logic is handled in the model, let's take a look at how our model is persisted by their events. First, our bank account needs a simple mechanism to release all of the event from its memory:
+Now that we have seen how logic is handled in the model, let's take a look at how our model is persisted through their events. First, our aggregate needs a simple mechanism to release all of the event from its memory:
 
 ```php
 abstract class EventSourcedAggregate
@@ -152,7 +152,7 @@ abstract class EventSourcedAggregate
 }
 ```
 
-Next, in our repository, we use messages to wrap the released events with whatever additional metadata we might need, such as a timestamp and the ID of the bank account (this is crucial, as it is used as an the events for each bank account). The messages are then persisted in a data store, such as a database, and published to the rest of our application.
+Next, in our repository, we use messages to wrap the released events with whatever additional metadata we might need - such as a timestamp and the ID of the bank account (this is crucial, as it is used to identify the correct events for each bank account). The messages are then persisted in a data store, such as a database, and published to the rest of our application.
 
 ```php
 class EventSourcedBankAccountRepository implements BankAccountRepository
@@ -174,7 +174,7 @@ class EventSourcedBankAccountRepository implements BankAccountRepository
 }
 ```
 
-Our model also needs to be able to be hydrated from its events. We can handle that by simply applying all the events in order to build up our model.
+Our model also needs to be able to be hydrated from its events. We can handle that by applying all the events to build up our model.
 
 ```php
 abstract class EventSourcedAggregate
@@ -194,7 +194,7 @@ abstract class EventSourcedAggregate
 }
 ```
 
-Our repository then fetches the events from its data store, and use those to reconstitute our model.
+This allows us to fetch the events from its data store, and use those to reconstitute our model.
 
 ```php
 class EventSourcedBankAccountRepository implements BankAccountRepository
