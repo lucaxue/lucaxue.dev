@@ -60,6 +60,9 @@ $repository->save($account);
 * Interact with the model
 * Store changes in the model
 
+Fortunately the code above, remains exactly the same with only changes happening in its implementation.
+Let's take a look at what the bank account model looks like now:
+
 ```php
 class BankAccount
 {
@@ -67,12 +70,69 @@ class BankAccount
 
     public function deposit(float $amount) : void
     {
-        $this->recordThat(new AmountWasDeposited($this->id()));
+        $this->recordThat(new AmountWasDeposited($this->id(), $amount));
     }
 
     private function applyAmountWasDeposited(AmountWasDeposited $event) : void
     {
-        $this->amount += $event->amount();
+        $this->amount += $event->amount;
     }
 }
 ```
+
+This may look at bit confusing at first, but we'll go through it. Notice how instead of directly performing the logic in the `deposit` method, we record an event, and the logic for performing the event is moved onto another method, that receives the event recorded. Before diving more in depth, onto how that all works together, let's take a look at what events are.
+
+### Events and Domain Events
+
+Events are simple DTO's that rapresent something that happend in the past. Domain events, is a slightly more specific, and represent something important to the problem domain we're solving that happened in the past. In our case, we care about an amount being deposit, so we appropriately name the event as `AmountWasDeposited`. Events are what we'll be persisting, for the models to be built up, so we'll want some serialization and hydration logic in them too.
+
+```php
+class AmountWasDeposited implements DomainEvent
+{
+    public function __construct(
+        public readonly BankAccountId $id,
+        public readonly float $amount,
+    ) {}
+
+    // Some logic to serialise to JSON and hydrate from JSON...
+}
+```
+
+### Event Sourced Aggregate 
+
+Let's move back to the 
+
+```php
+class BankAccount extends EventSourcedAggregate
+{
+    // ...
+}
+```
+
+```php
+abstract class EventSourcedAggregate
+{
+    protected function recordThat(DomainEvent $event) : void
+    {
+        $this->handler($event)($event);
+    }
+
+    private function handler(DomainEvent $event) : string
+    {
+        $handler = 'apply'.(new ReflectionClass($event))->getShortName();
+        if ( ! method_exists($this, $handler)) {
+            throw new Exception($handler.' not found.');
+        }
+        return $handler;
+    }
+
+    // ...
+}
+```
+
+
+
+
+
+
+
