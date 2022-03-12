@@ -152,7 +152,7 @@ abstract class EventSourcedAggregate
 }
 ```
 
-Next, in our repository, we use messages to wrap the released events with whatever additional metadata we might need - such as a timestamp and the ID of the bank account (this is crucial, as it is used to identify the correct events for each bank account). The messages are then persisted in a data store, such as a database, and published to the rest of our application.
+Next, in our repository, we use messages to wrap the released events with whatever additional metadata we might need - such as a timestamp and the ID of the bank account (this is crucial, as it is used to identify the correct events for each bank account). The messages are then persisted in an event store, a data store used only for storing events, and published to the rest of our application.
 
 ```php
 class EventSourcedBankAccountRepository implements BankAccountRepository
@@ -194,7 +194,7 @@ abstract class EventSourcedAggregate
 }
 ```
 
-This allows us to fetch the events from its data store, and use those to reconstitute our model.
+This allows us to fetch the events from its event store, and use those to reconstitute our model.
 
 ```php
 class EventSourcedBankAccountRepository implements BankAccountRepository
@@ -212,6 +212,8 @@ class EventSourcedBankAccountRepository implements BankAccountRepository
 
 ## Handling different UI needs with projections
 
+How will we query the for the bank account transactions that the UI might need? We could simply query the events, which is probably fine for this example, but for more complex UI needs, a dedicated read model, or a projection, is usually used. Since we publish the events when saving our model, we can register an event subscriber to persist a bank account transation record to a data store of our choice. In this example, I take advantage of Laravel's Eloquent, an active record implementation, to create a bank account transaction whenever an amount is deposited.
+
 ```php
 class BankAccountTransactionSubscriber implements Subscriber
 {
@@ -222,9 +224,8 @@ class BankAccountTransactionSubscriber implements Subscriber
 
     public function handle(Message $message) : void
     {
-        BankAccountTransaction::updateOrCreate([
+        BankAccountTransaction::create([
             'id' => $message->event()->id(),
-        ], [
             'amount' => $message->event()->amount(),
             'occurred_on' => $message->occurredOn(),
         ]);
