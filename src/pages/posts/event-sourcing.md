@@ -1,7 +1,7 @@
 ---
 title: Event Sourcing
-date: 2022-02-17T13:00:00.000+00:00
-duration: 10min
+date: 2022-03-12T18:00:00.000+00:00
+duration: 8min
 ---
 
 One of the interesting things I've not so recently learned about, is event sourcing. In simple terms, it is a way of creating software models with events. What does that even mean and why is it useful?
@@ -97,7 +97,7 @@ class AmountWasDeposited implements DomainEvent
 ### Recording our events
 
 Moving back to our `BankAccount` model, let's take a look at how the events are recorded.
-You may have noticed that we now extend the `EventSourcedAggregate` class, which contains all the logic to handle event sourcing. When recording an event, we first we append it in memory, then we find the appropriate event handler to apply the event to our model.
+You may have noticed that we now extend the `EventSourcedAggregate` class, which contains all the logic to handle event sourcing. When recording an event, we first append it in memory, then we find the appropriate event handler to apply the event to our model.
 
 ```php
 class BankAccount extends EventSourcedAggregate {/** */}
@@ -210,13 +210,15 @@ class EventSourcedBankAccountRepository implements BankAccountRepository
 }
 ```
 
-## Handling different UI needs with projections
+### Handling different UI needs with projections
 
-How will we query the for the bank account transactions that the UI might need? We could simply query the events, which is probably fine for this example, but for more complex UI needs, a dedicated read model, or a projection, is usually used. Since we publish the events when saving our model, we can register an event subscriber to persist a bank account transation record to a data store of our choice. In this example, I take advantage of Laravel's Eloquent, an active record implementation, to create a bank account transaction whenever an amount is deposited.
+How will we query the for the bank account transactions that the UI might need? We could simply query the events, which is probably fine for this example, but for more complex UI needs, a dedicated read model, or a projection, is usually needed. Since we publish the events when saving our model, we can register an event subscriber to persist a bank account transation record to a data store of our choice. In this example, the projection is simply persisted into a database table.
 
 ```php
 class BankAccountTransactionSubscriber implements Subscriber
 {
+    // ...
+
     public function isSubscribedTo(Message $message) : bool
     {
         return $message->event() instanceof AmountWasDeposited;
@@ -224,11 +226,17 @@ class BankAccountTransactionSubscriber implements Subscriber
 
     public function handle(Message $message) : void
     {
-        BankAccountTransaction::create([
-            'id' => $message->event()->id(),
-            'amount' => $message->event()->amount(),
-            'occurred_on' => $message->occurredOn(),
-        ]);
+        $this->connection
+            ->table('bank_account_transactions')
+            ->insert([
+                'id' => $message->event()->id(),
+                'amount' => $message->event()->amount(),
+                'occurred_on' => $message->occurredOn(),
+            ]);
     }
 }
 ```
+
+## Closing words and related ideas
+
+I found the concept of event sourcing hard to digest when I first encountered it. Hopefully this pragmatic introduction to the topic is helpful to you. Some ideas are usually paired with event sourcing include CQRS, DDD and Hexagonal architecture to mention a few. I highly recommend looking into those if you're curious enough. Maybe I'll write something about those in future blogs. Happy hacking, and have a wonderful day.
