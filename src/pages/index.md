@@ -9,6 +9,6 @@ My goal is to solve real-world problems and bring value with what I am passionat
 
 I am currently working within the PHP and Laravel ecosystem, with VueJS as the frontend framework of choice. However, I have worked with different technologies before, and I have proved to be able to quickly pick up new technologies when necessary.
 
-Outside of programming, I enjoy reading, drawing, and messing around with my mechanical keyboard.
+Outside of programming, I enjoy reading, drawing, and taking long walks.
 
 Find me on [GitHub](https://github.com/lucaxue), [Twitter](https://twitter.com/luca_xue) and [CodeWars](https://www.codewars.com/users/lucaxue).
