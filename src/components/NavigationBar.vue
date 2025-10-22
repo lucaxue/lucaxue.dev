@@ -20,9 +20,9 @@ const { t } = useI18n()
         <uil-lightbulb-alt class="sm:hidden mt-1" />
       </router-link>
 
-      <a class="icon-btn mx-2" rel="noreferrer" href="https://twitter.com/luca_xue" target="_blank" title="Twitter">
+      <!-- <a class="icon-btn mx-2" rel="noreferrer" href="https://twitter.com/luca_xue" target="_blank" title="Twitter">
         <uil-twitter-alt class="mt-1" />
-      </a>
+      </a> -->
 
       <a class="icon-btn mx-2" rel="noreferrer" href="https://github.com/lucaxue" target="_blank" title="GitHub">
         <uil-github-alt class="mt-1" />
